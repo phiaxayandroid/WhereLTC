@@ -5,6 +5,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
 /**
  * Created by masterUNG on 12/14/2016 AD.
@@ -26,11 +28,16 @@ public class SynUser extends AsyncTask<Void, Void, String>{
         try {
 
             OkHttpClient okHttpClient = new OkHttpClient();
+            Request.Builder builder = new Request.Builder();
+            Request request = builder.url(urlJSON).build();
+            Response response = okHttpClient.newCall(request).execute();
+            return response.body().string();
 
         } catch (Exception e) {
             Log.d("14decV2", "e doin ==> " + e.toString());
+            return null;
         }
 
-        return null;
+
     }
 }   // Main Class

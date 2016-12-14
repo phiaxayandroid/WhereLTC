@@ -3,6 +3,7 @@ package appewtc.masterung.whereltc;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -39,6 +40,16 @@ public class MainActivity extends AppCompatActivity {
 
         } else {
             //No Space
+            try {
+
+                SynUser synUser = new SynUser(MainActivity.this);
+                synUser.execute();
+                String s = synUser.get();
+                Log.d("14decV2", "JSoN ==> " + s);
+
+            } catch (Exception e) {
+                Log.d("14devV2", "e Main ==> " + e.toString());
+            }
 
         }
 
