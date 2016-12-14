@@ -41,6 +41,22 @@ public class SignUpActivity extends AppCompatActivity {
                     "Please Fill All Blank", R.drawable.doremon48);
             myAlert.myDialog();
 
+        } else {
+
+            try {
+
+                UpdateUser updateUser = new UpdateUser(SignUpActivity.this,
+                        nameString, userString, passwordString);
+                updateUser.execute();
+
+                String s = updateUser.get();
+                Log.d("14decV1", "Result ==> " + s);
+
+            } catch (Exception e) {
+                Log.d("14decV1", "e singUp ==> " + e.toString());
+            }
+
+
         }
 
 
