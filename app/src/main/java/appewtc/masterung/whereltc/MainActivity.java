@@ -31,7 +31,11 @@ public class MainActivity extends AppCompatActivity {
 
         if (userString.equals("") || passwordString.equals("")) {
             //Have Space
-          //  MyAlert myAlert = new MyAlert(MainActivity.this, )
+            MyAlert myAlert = new MyAlert(MainActivity.this,
+                    getResources().getString(R.string.title_have_space),
+                    getResources().getString(R.string.message_have_space),
+                    R.drawable.nobita48);
+            myAlert.myDialog();
 
         } else {
             //No Space
