@@ -7,6 +7,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -22,12 +23,17 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
     private GoogleMap mMap;
     private LocationManager locationManager;
     private Criteria criteria;
-    private double latADouble, lngADouble;
+    private double latADouble, lngADouble, updateLatADouble, updateLngADouble;
+    private String[] loginStrings;
+    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_layout);
+
+        //Bind Widget
+        textView = (TextView) findViewById(R.id.textView5);
 
         //Setup
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -35,6 +41,11 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
         criteria.setAccuracy(Criteria.ACCURACY_FINE);
         criteria.setAltitudeRequired(false);
         criteria.setBearingRequired(false);
+        loginStrings = getIntent().getStringArrayExtra("Login");
+
+        //Show View
+        textView.setText(loginStrings[1]);
+
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -121,6 +132,7 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+
         LatLng latLng = new LatLng(latADouble, lngADouble);
 
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
@@ -143,6 +155,12 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
         LatLng latLng = new LatLng(latADouble, lngADouble);
         mMap.addMarker(new MarkerOptions().position(latLng)
         .icon(BitmapDescriptorFactory.fromResource(R.drawable.build4)));
+
+        updateLatADouble = latADouble;
+        updateLngADouble = lngADouble;
+        Log.d("15decV2", "updateLat ==> " + updateLatADouble);
+        Log.d("15decV2", "updateLng ==> " + updateLngADouble);
+
 
     }
 
