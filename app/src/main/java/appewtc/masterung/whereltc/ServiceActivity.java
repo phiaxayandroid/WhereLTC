@@ -12,6 +12,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -126,13 +127,22 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
 
         myAddMarker(latADouble, lngADouble);
 
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                mMap.clear();
+                myAddMarker(latLng.latitude, latLng.longitude);
+            }
+        });
+
 
     }   // onMap
 
     private void myAddMarker(double latADouble, double lngADouble) {
 
         LatLng latLng = new LatLng(latADouble, lngADouble);
-        mMap.addMarker(new MarkerOptions().position(latLng));
+        mMap.addMarker(new MarkerOptions().position(latLng)
+        .icon(BitmapDescriptorFactory.fromResource(R.drawable.build4)));
 
     }
 
