@@ -4,8 +4,9 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -42,8 +43,35 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
     }   // Main Method
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        latADouble = 17.969857;
+        lngADouble = 102.612190;
+
+        Location networkLocation = myFindLocation(LocationManager.NETWORK_PROVIDER);
+        if (networkLocation != null) {
+            latADouble = networkLocation.getLatitude();
+            lngADouble = networkLocation.getLongitude();
+        }
+
+        Location gpsLocation = myFindLocation(LocationManager.GPS_PROVIDER);
+        if (gpsLocation != null) {
+            latADouble = gpsLocation.getLatitude();
+            lngADouble = gpsLocation.getLongitude();
+        }
+
+        Log.d("15decV1", "lat ==> " + latADouble);
+        Log.d("15decV1", "lng ==> " + lngADouble);
+
+    }   // onResume
+
+    @Override
     protected void onStop() {
         super.onStop();
+
+        locationManager.removeUpdates(locationListener);
+
     }
 
     public Location myFindLocation(String strProvider) {
@@ -92,10 +120,20 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng latLng = new LatLng(latADouble, lngADouble);
+
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
+
+        myAddMarker(latADouble, lngADouble);
+
+
     }   // onMap
+
+    private void myAddMarker(double latADouble, double lngADouble) {
+
+        LatLng latLng = new LatLng(latADouble, lngADouble);
+        mMap.addMarker(new MarkerOptions().position(latLng));
+
+    }
 
 }   // Main Class
