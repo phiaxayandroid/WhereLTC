@@ -10,6 +10,8 @@
     <string name="title_pass_false">Password False</string>
     <string name="message_pass_false">Please Try Again Password False</string>
     <string name="title_activity_service">Map</string>
+    <string name="title_photo_space">Have Space</string>
+    <string name="message_photo_space">Please Fill All Every Blank</string>
 
 
 </resources>

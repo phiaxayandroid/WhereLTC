@@ -31,6 +31,15 @@ public class MainActivity extends AppCompatActivity {
 
     }   // Main Method
 
+
+    public void clickPass(View view) {
+        String[] strings = new String[]{"id","Name","User","Password"};
+        Intent intent = new Intent(MainActivity.this, ServiceActivity.class);
+        intent.putExtra("Login", strings);
+        startActivity(intent);
+
+    }
+
     public void clickSignIn(View view) {
 
         userString = userEditText.getText().toString().trim();

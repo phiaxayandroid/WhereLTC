@@ -17,7 +17,11 @@ import com.squareup.okhttp.Response;
 public class UpdateUser extends AsyncTask<Void, Void, String>{
 
     //Explicit
-    private static final String urlPHP = "http://swiftcodingthai.com/ltc/add_user_master.php";
+    //http://lao-hosting.com/ltc/add_user_master.php
+    private static final String urlPHP = "http://lao-hosting.com/ltc/add_user_master.php";
+   //private static final String urlPHP = "http://swiftcodingthai.com/ltc/add_user_master.php";  // for table master
+    //http://swiftcodingthai.com/ltc/add_user_phiaxay.php
+    //private static final String urlPHP = "http://swiftcodingthai.com/ltc/add_user_phiaxay.php";
     private Context context;
     private String nameString, userString, passwordString;
 
