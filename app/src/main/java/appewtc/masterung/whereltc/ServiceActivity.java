@@ -44,7 +44,7 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
     private TextView textView;
     private EditText editText;
     private ImageView imageView, takePhotoImageView;
-    private String nameImageString, pathImageString;
+    private String nameImageString, pathImageString, urlImageString;
     private Uri uri;
     private boolean aBoolean = true;
 
@@ -107,6 +107,13 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
 
     }   // Main Method
 
+    public void clickListView (View view) {
+
+        startActivity(new Intent(ServiceActivity.this, LTClistView.class));
+
+
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode,
@@ -163,6 +170,8 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
         } else {
             //Data OK
             uploadimage();
+            uplaodString();
+
 
 
         }
@@ -171,6 +180,34 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
 
 
     }//Click save
+
+    private void uplaodString() {
+
+        urlImageString = "lao-hosting.come/ltc/Image/"+
+                pathImageString.substring(pathImageString.lastIndexOf("/"));
+        Log.d("16decV2", "urlImage==>" + urlImageString);
+
+        try{
+            UpdateLTC updateLTC = new UpdateLTC(ServiceActivity.this,
+                    nameImageString, urlImageString,
+                    Double.toString(latADouble),
+                    Double.toString(lngADouble));
+            updateLTC.execute();
+
+            if (Boolean.parseBoolean(updateLTC.get())) {
+                Toast.makeText(ServiceActivity.this,"Save OK", Toast.LENGTH_SHORT).show();
+
+            } else {
+                Toast.makeText(ServiceActivity.this,"Save Not OK", Toast.LENGTH_SHORT).show();
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+
+    }
 
     private void uploadimage() {
 
